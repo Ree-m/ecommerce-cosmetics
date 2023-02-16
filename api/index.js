@@ -6,6 +6,8 @@ const mongoose = require("mongoose")
 // const connectDB = require("../config/database.js")
 // const session = require('express-session')
 // const MongoStore = require("connect-mongo");
+// routes
+const mainRoutes=require("./routes/main")
 // models
 const User = require("./models/User")
 
@@ -37,20 +39,11 @@ app.use(express.json());
 //     })
 // );
 
-app.post("/register", async (req, res) => {
-    const { username, password } = req.body
+// Setup Routes 
+app.use("/",mainRoutes)
 
-    const userInfo = new User({
-        username: username,
-        password: password
-    })
-    try {
-        const userInfoToSave = await userInfo.save()
-        res.status(200).json(userInfoToSave)
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({ message:error })
-    }
+app.post("/register", async (req, res) => {
+    
 })
 
 
