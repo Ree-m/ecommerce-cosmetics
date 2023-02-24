@@ -11,7 +11,8 @@ const MongoStore = require("connect-mongo")
 const bcrypt = require("bcryptjs")
 const flash = require("express-flash");//if password is short,email is invalid,or not confirmed,flash gives us an error message
 const logger = require('morgan')
-// const SQLiteStore = require('connect-sqlite3')(session);
+const jwt = require("jsonwebtoken")
+
 
 
 

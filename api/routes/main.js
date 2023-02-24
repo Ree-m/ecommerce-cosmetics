@@ -5,6 +5,8 @@ const passport=require("passport")
 
 router.post("/signup",authContoller.postSignup)
 router.post("/login",authContoller.postLogin)
+router.get("/profile",authContoller.getProfile)
+router.post("/logout",authContoller.postLogout)
 
 
 
