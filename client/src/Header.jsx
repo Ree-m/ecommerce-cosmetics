@@ -24,15 +24,15 @@ const Header = () => {
         })
         setUserInfo(null)
     }
-const username=userInfo?.username //if userInfo is there,give me username
+    const username = userInfo?.username //if userInfo is there,give me username
     return (
         <header className="header">
             <Link to={"/"} className="logo">SkinShop</Link>
             <nav>
                 {username && (
                     <>
-                        <Link to={"/add"}>Add new product</Link>
-                        <a className="logout" onClick={logout}>Logout</a>
+                        <Link to="/add">Add new product</Link>
+                        <a className="logout" onClick={logout}>Logout {{ username}}</a>
                     </>
                 )}
                 {!username && (
