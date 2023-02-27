@@ -7,7 +7,7 @@ const Header = () => {
     const { setUserInfo, userInfo } = useContext(UserContext)
 
     useEffect(() => {
-        fetch("http://localhost:9000/profile", {
+        fetch("http://localhost:9000/profile/", {
             credentials: "include",
         }).then(response => {
             response.json().then(userInfo => {
@@ -32,7 +32,7 @@ const Header = () => {
                 {username && (
                     <>
                         <Link to="/add">Add new product</Link>
-                        <a className="logout" onClick={logout}>Logout {{ username}}</a>
+                        <a className="logout" onClick={logout}>Logout ({username})</a>
                     </>
                 )}
                 {!username && (
