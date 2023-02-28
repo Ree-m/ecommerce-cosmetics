@@ -21,15 +21,18 @@ const LoginPage = () => {
             credentials:"include"
         })
         // if response is true,redirect is true
-        if(await response.ok){
+        if(response.ok){
+            console.log(response)
             response.json().then(userInfo=>{
                 setUserInfo(userInfo)
                 setRedirect(true)
 
             })
-        }else{
+        
+        }else {
             alert("wrong credentials")
         }
+    
         
     }
 
@@ -37,6 +40,7 @@ const LoginPage = () => {
     if(redirect){
         return <Navigate to={"/"} />
     }
+    
 
     return (
         <form className="login-page" onSubmit={login}>

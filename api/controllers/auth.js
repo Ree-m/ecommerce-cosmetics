@@ -18,7 +18,24 @@ const secret = "kj06d8eg4dbklpo3ie3u2x86k047gfbc7ny" //this secret is called a s
 
 app.use(cookieParser())
 
+exports.postSignup = async (req, res) => {
 
+  const { username, email, password } = req.body
+
+  const userInfo = new User({
+    username: username,
+    email: email,
+    password: bcrypt.hashSync(password, salt)
+  })
+  try {
+    const userInfoToSave = await userInfo.save()
+    res.status(200).json(userInfoToSave);
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({ message: error })
+  }
+}
 
 exports.postLogin = async (req, res) => {
 
@@ -46,24 +63,7 @@ exports.postLogin = async (req, res) => {
 
 }
 
-exports.postSignup = async (req, res) => {
 
-  const { username, email, password } = req.body
-
-  const userInfo = new User({
-    username: username,
-    email: email,
-    password: bcrypt.hashSync(password, salt)
-  })
-  try {
-    const userInfoToSave = await userInfo.save()
-    res.status(200).json(userInfoToSave);
-
-  } catch (error) {
-    console.log(error)
-    res.status(400).json({ message: error })
-  }
-}
 
 exports.getProfile = (req, res) => {
   jwt.verify(req.cookies.token, secret, {}, (error, userInfo) => {
