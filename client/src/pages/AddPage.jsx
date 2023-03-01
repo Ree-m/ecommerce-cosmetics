@@ -7,13 +7,14 @@ const AddPage = () => {
     function addProduct(e) {
         e.preventDefault()
         console.log("add")
-        const data = new FormData()
-        data.set("name",name)
-        data.set("brand",brand)
-        data.set("price",price)
+        // const data = new FormData()
+        // data.set("name",name)
+        // data.set("brand",brand)
+        // data.set("price",price)
         const response =fetch("http://localhost:9000/add",{
             method:"POST",
-            body:data,
+            body:JSON.stringify({name,brand,price}),
+            headers:{"Content-Type":"application/json"},
             credentials:"include",
 
         })
