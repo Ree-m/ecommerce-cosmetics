@@ -35,7 +35,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 mongoose.connect(process.env.DB_STRING,console.log("DB is connected"))
 
 // Body Parsing,get data from req.body
-// app.use(express.json());
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
