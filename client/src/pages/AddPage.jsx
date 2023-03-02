@@ -1,16 +1,17 @@
 import { useState } from "react"
+import { Navigate } from "react-router-dom"
+
 
 const AddPage = () => {
     const [name, setName] = useState("")
     const [brand, setBrand] = useState("")
     const [price, setPrice] = useState("")
-    function addProduct(e) {
+    const [redirect,setRedirect]=useState(false)
+
+    async function addProduct(e) {
         e.preventDefault()
         console.log("add")
-        // const data = new FormData()
-        // data.set("name",name)
-        // data.set("brand",brand)
-        // data.set("price",price)
+    
         const response =fetch("http://localhost:9000/add",{
             method:"POST",
             body:JSON.stringify({name,brand,price}),
@@ -18,7 +19,14 @@ const AddPage = () => {
             credentials:"include",
 
         })
-        console.log(response)
+        if((await response).ok){
+            setRedirect(true)
+        }
+        // console.log(await response)
+    }
+
+    if(redirect){
+        return<Navigate to={"/"} />
     }
 
 

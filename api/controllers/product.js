@@ -14,7 +14,15 @@ exports.postAdd = async (req, res) => {
         price: req.body.price
     })
     res.json(newProduct)
+}
 
+exports.getAllProducts=async(req,res)=>{
+    const products =await Product.find()
+    res.json(products)
+}
 
+exports.getProduct=async(req,res)=>{
+    // const product=await Product.findById()
+    console.log(req.params.id)
 
 }
