@@ -1,6 +1,11 @@
+
 import { Link } from "react-router-dom";
 
 const Product = ({ _id, name, brand, price }) => {
+// function delete(e){
+//     e.preventDefault()
+
+// }
     return (
         <div className="product">
             <div className="product-title">
@@ -12,6 +17,8 @@ const Product = ({ _id, name, brand, price }) => {
             </div>
             <div className="product-details">
                 <span>{price}</span>
+                <button>delete</button>
+
             </div>
 
         </div>

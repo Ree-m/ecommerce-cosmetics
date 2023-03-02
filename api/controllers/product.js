@@ -22,7 +22,9 @@ exports.getAllProducts=async(req,res)=>{
 }
 
 exports.getProduct=async(req,res)=>{
-    // const product=await Product.findById()
+    const {id}=req.params
+    const product=await Product.findById(id)
     console.log(req.params.id)
+    res.json(product)
 
 }

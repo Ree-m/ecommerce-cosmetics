@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import AddPage from './pages/AddPage';
 import { UserContextProvider } from './UserContext'
+import ProductPage from './pages/ProductPage';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
           <Route path={"/login"} element={<LoginPage />} />
           <Route path={"/signup"} element={<SignupPage />} />
           <Route path="/add" element={<AddPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+
 
         </Route>
 
