@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs")
 const localStrategy = require("passport-local").Strategy
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
+const { redirect } = require("react-router-dom")
 
 
 // To hash a password
@@ -55,6 +56,7 @@ exports.postLogin = async (req, res) => {
         email
       })  //'token' is set to token from the parameter
     })
+    redirect("/")
   }
   else {
     // not logged in
