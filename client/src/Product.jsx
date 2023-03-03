@@ -17,7 +17,6 @@ const Product = ({ _id, name, brand, price }) => {
             </div>
             <div className="product-details">
                 <span>{price}</span>
-                <button>delete</button>
 
             </div>
 

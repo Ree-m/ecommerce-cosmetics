@@ -1,12 +1,13 @@
 
 import { useState } from 'react';
-import { useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { useEffect } from 'react';
 
 const ProductPage = () => {
     const [product,setProduct]=useState("")
+    const [redirect,setRedirect]=useState(false)
     const {id}=useParams()
     const {userInfo} =useContext(UserContext)
 
@@ -17,6 +18,19 @@ const ProductPage = () => {
             })
         })
     },[])
+   async function deleteProduct(e){
+        e.preventDefault()
+        
+        const response=fetch(`http://localhost:9000/deleteProduct/${id}`,{
+            method:"DELETE"
+        })
+        setRedirect(true)
+        console.log(response)
+
+    }
+    if(redirect){
+        return <Navigate to={"/"} />
+    }
     return ( 
         <div className="product-page">
             <div className="product-title">
@@ -26,6 +40,8 @@ const ProductPage = () => {
             <div className="product-details">
                 <span>{product.price}</span>
             </div>
+
+            <button onClick={deleteProduct}>delete</button>
 
         </div>
      );

@@ -16,15 +16,23 @@ exports.postAdd = async (req, res) => {
     res.json(newProduct)
 }
 
-exports.getAllProducts=async(req,res)=>{
-    const products =await Product.find()
+exports.getAllProducts = async (req, res) => {
+    const products = await Product.find()
     res.json(products)
 }
 
-exports.getProduct=async(req,res)=>{
-    const {id}=req.params
-    const product=await Product.findById(id)
+exports.getProduct = async (req, res) => {
+    const { id } = req.params
+    const product = await Product.findById(id)
     console.log(req.params.id)
     res.json(product)
+
+}
+
+exports.deleteProduct = async (req, res) => {
+    const product = await Product.findById({ _id: req.params.id })
+    await Product.remove({ _id: req.params.id })
+    console.log("Product deleted")
+    res.redirect("/")
 
 }
