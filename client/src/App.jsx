@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage'
 import AddPage from './pages/AddPage';
 import { UserContextProvider } from './UserContext'
 import ProductPage from './pages/ProductPage';
+import EditProductPage from './pages/EditProductPage';
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
           <Route path={"/signup"} element={<SignupPage />} />
           <Route path="/add" element={<AddPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/edit/:id" element={<EditProductPage />} />
+
 
 
         </Route>

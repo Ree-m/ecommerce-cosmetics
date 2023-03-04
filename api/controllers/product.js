@@ -29,6 +29,18 @@ exports.getProduct = async (req, res) => {
 
 }
 
+exports.editProduct=async(req,res)=>{
+    const product = await Product.findById({ _id: req.params.id })
+    await product.update({
+        name:req.body.name,
+        brand:req.body.brand,
+        price:req.body.price
+    })
+    res.json(product)
+    
+
+}
+
 exports.deleteProduct = async (req, res) => {
     const product = await Product.findById({ _id: req.params.id })
     await Product.remove({ _id: req.params.id })

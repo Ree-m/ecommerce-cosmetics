@@ -29,10 +29,15 @@ const Header = () => {
         <header className="header">
             <Link to={"/"} className="logo">SkinShop</Link>
             <nav>
-                {username && (
+                {username && username=="reemreem" && (
                     <>
                         <Link to="/add">Add new product</Link>
                         <a className="logout" onClick={logout}>Logout ({username})</a>
+                    </>
+                )}
+                {username && username!=="reemreem" && (
+                    <>
+                    <a className="logout" onClick={logout}>Logout({username})</a>
                     </>
                 )}
                 {!username && (

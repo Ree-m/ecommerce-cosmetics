@@ -21,18 +21,16 @@ const LoginPage = () => {
             credentials:"include"
         })
         // if response is true,redirect is true
+        console.log(response)
         if((await response).ok){
-            console.log(response)
-            // response.json().then(userInfo=>{
-                // setUserInfo(userInfo)
+            response.json().then(userInfo=>{
+                setUserInfo(userInfo)
                 setRedirect(true)
-            // })
+            })
 
         }else {
-            alert("login page")
+            alert("login page,wrong credentials")
         }
-    
-        
     }
 
     // if redirect is true,redirect to homepage from loginpage
