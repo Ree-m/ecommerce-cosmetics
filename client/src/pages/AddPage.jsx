@@ -12,7 +12,7 @@ const AddPage = () => {
         e.preventDefault()
         console.log("add")
     
-        const response =fetch("http://localhost:9000/add",{
+        const response =fetch("http://localhost:9000/product/add",{
             method:"POST",
             body:JSON.stringify({name,brand,price}),
             headers:{"Content-Type":"application/json"},

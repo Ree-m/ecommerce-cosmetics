@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const ProductPage = () => {
     const [product, setProduct] = useState("")
     const [redirect, setRedirect] = useState(false)
+    const [addToCart,setAddToCart]=useState(false)
     const { id } = useParams()
     const { userInfo } = useContext(UserContext)
 
@@ -21,11 +22,23 @@ const ProductPage = () => {
     async function deleteProduct(e) {
         e.preventDefault()
 
-        const response = fetch(`http://localhost:9000/deleteProduct/${id}`, {
+        const response = fetch(`http://localhost:9000/product/deleteProduct/${id}`, {
             method: "DELETE"
         })
         setRedirect(true)
         console.log(response)
+
+    }
+
+    async function addToBag(e){
+        e.preventDefault()
+        const response=await fetch(`http://localhost:9000/product/${id}`,{
+            method:"PUT",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(productToAdd)
+        })
+        
+
 
     }
     if (redirect) {
@@ -60,6 +73,8 @@ const ProductPage = () => {
                 </div>
 
             )}
+
+            <button onClick={addToBag}>{product.addToCart?"In Cart":"Add to Cart"}</button>
 
         </div>
     );

@@ -6,7 +6,7 @@ const HomePage = () => {
     const [products,setProducts]=useState([])
 
     useEffect(()=>{
-        fetch("http://localhost:9000/allProducts")
+        fetch("http://localhost:9000/product/allProducts")
         .then(res=>{
             res.json()
             .then(products=>{

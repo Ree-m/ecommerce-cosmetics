@@ -19,14 +19,23 @@ const jwt = require("jsonwebtoken")
 
 // routes
 const mainRoutes=require("./routes/main")
+const productRoutes=require("./routes/product")
+
+
 // models
 const User = require("./models/User")
 
-
-
-
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
+
+
+const initializePassport = require('./config/passportConfig')
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
+const users=[]
 
 app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 
@@ -46,8 +55,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
     session({
         secret: "keyboard cat",
-        resave: true,  // save session if unmodified
-        saveUninitialized: true,  //  create session until something stored
+        resave: false,  // dont save session if unmodified
+        saveUninitialized: false,  //dont  create session until something stored
         
     })
 )
@@ -57,12 +66,16 @@ app.use(cookieParser("secretcode"))
 //Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
-require("./config/passportConfig")(passport)
 app.use(flash()) //for errors
 
 
 // Setup Routes
 app.use("/",mainRoutes)
+app.use("/product",productRoutes)
+
+// Plug in the JWT strategy as a middleware so only verified users can access this route.
+// app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+
 
 app.listen(process.env.PORT || 9000,()=>{
     console.log("Server has started")
