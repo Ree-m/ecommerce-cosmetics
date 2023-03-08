@@ -19,7 +19,6 @@ const jwt = require("jsonwebtoken")
 
 // routes
 const mainRoutes=require("./routes/main")
-const productRoutes=require("./routes/product")
 
 
 // models
@@ -71,7 +70,6 @@ app.use(flash()) //for errors
 
 // Setup Routes
 app.use("/",mainRoutes)
-app.use("/product",productRoutes)
 
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
 // app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);

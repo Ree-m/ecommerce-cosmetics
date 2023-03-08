@@ -22,7 +22,7 @@ const ProductPage = () => {
     async function deleteProduct(e) {
         e.preventDefault()
 
-        const response = fetch(`http://localhost:9000/product/deleteProduct/${id}`, {
+        const response = fetch(`http://localhost:9000/deleteProduct/${id}`, {
             method: "DELETE"
         })
         setRedirect(true)
@@ -32,12 +32,12 @@ const ProductPage = () => {
 
     async function addToBag(e){
         e.preventDefault()
-        const response=await fetch(`http://localhost:9000/product/${id}`,{
-            method:"PUT",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(productToAdd)
-        })
-        
+        // const response=await fetch(`http://localhost:9000/product/${id}`,{
+        //     method:"PUT",
+        //     headers:{"Content-Type":"application/json"},
+        //     body:JSON.stringify(productToAdd)
+        // })
+        console.log("add to bag")
 
 
     }

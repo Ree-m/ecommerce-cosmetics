@@ -55,7 +55,7 @@ exports.postLogin = async (req, res) => {
         email
       })  //'token' is set to token from the parameter
     })
-    redirect("/")
+    // redirect("/")
   }
   else {
     // not logged in

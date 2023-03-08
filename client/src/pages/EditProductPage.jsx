@@ -20,7 +20,7 @@ const EditProduct = () => {
 
     async function updateProduct(e){
         e.preventDefault()
-      const response= fetch(`http://localhost:9000/product/edit/${id}`,{
+      const response= fetch(`http://localhost:9000/edit/${id}`,{
             method:"PUT",
             body:JSON.stringify({name,brand,price}),
             headers:{"Content-Type":"application/json"},
