@@ -33,19 +33,26 @@ const Header = () => {
                     <>
                         <Link to="/add">Add new product</Link>
                         <a className="logout" onClick={logout}>Logout ({username})</a>
+                        <Link to="/cart">Cart</Link>
                     </>
                 )}
                 {username && username!=="reemreem" && (
                     <>
                     <a className="logout" onClick={logout}>Logout({username})</a>
+                    <Link to="/cart">Cart</Link>
+
                     </>
                 )}
                 {!username && (
                     <>
                         <Link to={"/login"}>Login</Link>
                         <Link to={"/signup"}>Signup</Link>
+                        <Link tp="/cart">Cart</Link>
+
                     </>
                 )}
+
+            
 
             </nav>
         </header>

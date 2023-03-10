@@ -1,11 +1,13 @@
 
 import { Link } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
-const Product = ({ _id, name, brand, price }) => {
-// function delete(e){
-//     e.preventDefault()
+const Product = ({ _id, product, name, brand, price }) => {
+    const { addItem } = useCart()
+    // function delete(e){
+    //     e.preventDefault()
 
-// }
+    // }
     return (
         <div className="product">
             <div className="product-title">
@@ -18,7 +20,11 @@ const Product = ({ _id, name, brand, price }) => {
             <div className="product-details">
                 <span>{price}</span>
 
+
             </div>
+            {/* <div key={_id}>
+                <button onClick={() => addItem(product)}>Add to cart</button>
+            </div> */}
 
         </div>
     );

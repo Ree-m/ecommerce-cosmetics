@@ -4,13 +4,14 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from 'react-use-cart';
 
 const ProductPage = () => {
     const [product, setProduct] = useState("")
     const [redirect, setRedirect] = useState(false)
-    const [addToCart,setAddToCart]=useState(false)
     const { id } = useParams()
     const { userInfo } = useContext(UserContext)
+    const { addItem } = useCart()
 
     useEffect(() => {
         fetch(`http://localhost:9000/product/${id}`).then(res => {
@@ -30,17 +31,20 @@ const ProductPage = () => {
 
     }
 
-    async function addToBag(e){
-        e.preventDefault()
-        // const response=await fetch(`http://localhost:9000/product/${id}`,{
-        //     method:"PUT",
-        //     headers:{"Content-Type":"application/json"},
-        //     body:JSON.stringify(productToAdd)
-        // })
-        console.log("add to bag")
+    // async function addToCart(e){
+    //     e.preventDefault()
+    //     const response=await fetch(`http://localhost:9000/cart/${id}`,{
+    //         method:"POST",
+    //         headers:{"Content-Type":"application/json"},
+    //         body:JSON.stringify({})
+    //     })
+    //     console.log(response)
+    //     if((await response).ok){
+    //         alert("Product added to cart")
+    //     }
 
 
-    }
+    // }
     if (redirect) {
         return <Navigate to={"/"} />
     }
@@ -73,9 +77,10 @@ const ProductPage = () => {
                 </div>
 
             )}
+            <div key={id}>
+                <button onClick={()=>addItem(product)}>Add to cart</button>
 
-            <button onClick={addToBag}>{product.addToCart?"In Cart":"Add to Cart"}</button>
-
+            </div>
         </div>
     );
 }
