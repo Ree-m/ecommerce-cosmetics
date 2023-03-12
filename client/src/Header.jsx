@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import { FaCartPlus } from "react-icons/fa";
+import "./styles/header.css"
 
-const Header = () => {
+
+
+const Header = ({ cartItemCount }) => {
     const { setUserInfo, userInfo } = useContext(UserContext)
+
 
     useEffect(() => {
         fetch("http://localhost:9000/profile/", {
@@ -24,38 +29,53 @@ const Header = () => {
         })
         setUserInfo(null)
     }
+
+
     const username = userInfo?.username //if userInfo is there,give me username
     return (
         <header className="header">
             <Link to={"/"} className="logo">SkinShop</Link>
             <nav>
-                {username && username=="reemreem" && (
+                {username && username == "reemreem" && (
                     <>
                         <Link to="/add">Add new product</Link>
                         <a className="logout" onClick={logout}>Logout ({username})</a>
-                        <Link to="/cart">Cart</Link>
+                        <Link to="/cart">
+                        
+                        <div className="cart" onClick={() => setShow(false)}>
+                            <span>
+                                <i className="fas fa-cart-plus"></i>
+                            </span>
+                            <span>0</span>
+                        </div>
+                    </Link>
                     </>
                 )}
-                {username && username!=="reemreem" && (
-                    <>
+            {username && username !== "reemreem" && (
+                <>
                     <a className="logout" onClick={logout}>Logout({username})</a>
-                    <Link to="/cart">Cart</Link>
+                    <Link to="/cart">
+                        <i className="fas fa-cart-plus"></i>
 
-                    </>
-                )}
-                {!username && (
-                    <>
-                        <Link to={"/login"}>Login</Link>
-                        <Link to={"/signup"}>Signup</Link>
-                        <Link tp="/cart">Cart</Link>
+                    </Link>
 
-                    </>
-                )}
+                </>
+            )}
+            {!username && (
+                <>
+                    <Link to={"/login"}>Login</Link>
+                    <Link to={"/signup"}>Signup</Link>
+                    <Link to="/cart">
 
-            
+                    </Link>
 
-            </nav>
-        </header>
+                </>
+            )}
+
+
+
+        </nav>
+        </header >
     );
 }
 

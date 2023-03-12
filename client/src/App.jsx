@@ -16,30 +16,39 @@ import CartPage from './pages/CartPage';
 
 
 function App() {
+  const [cart, setCart] = useState([])
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+
+  function handleClick(product) {
+    if (cart.indexOf(product) !== -1) return;
+    setCart([...cart, product])
+    setCartItemCount(cartItemCount + 1);
+    console.log(cart)
+
+  }
 
   return (
     <UserContextProvider>
-      <CartProvider>
-        <Routes>
-          <Route path={"/"} element={<Layout />} >
+      <Routes>
+        <Route path={"/"} element={<Layout />} >
 
-            <Route index element={<HomePage />} />
-            <Route path={"/login"} element={<LoginPage />} />
-            <Route path={"/signup"} element={<SignupPage />} />
-            <Route path="/add" element={<AddPage />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-            <Route path="/edit/:id" element={<EditProductPage />} />
-            <Route path="/cart" element={<CartPage/>} />
-
+          <Route index element={<HomePage handleClick={handleClick} />} />
+          <Route path={"/login"} element={<LoginPage />} />
+          <Route path={"/signup"} element={<SignupPage />} />
+          <Route path="/add" element={<AddPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/edit/:id" element={<EditProductPage />} />
+          <Route path="/cart" element={<CartPage cart={cart} setCart={setCart}/>} />
 
 
 
-          </Route>
+
+        </Route>
 
 
 
-        </Routes>
-      </CartProvider>
+      </Routes>
     </UserContextProvider>
 
   )

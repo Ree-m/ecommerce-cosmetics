@@ -11,9 +11,6 @@ const ProductSchema = new mongoose.Schema({
     price:{
         type:Number,
 
-    },
-    addToCart:{
-        type:Boolean
     }
 },{
     timestamps:true

@@ -2,8 +2,9 @@ import { useState, useEffect } from "react"
 import Product from "../Product"
 
 
-const HomePage = () => {
+const HomePage = ({handleClick}) => {
     const [products, setProducts] = useState([])
+
 
     useEffect(() => {
         fetch("http://localhost:9000/allProducts")
@@ -11,20 +12,23 @@ const HomePage = () => {
                 res.json()
                     .then(products => {
                         setProducts(products)
-                        // console.log("this is products",products)
                     })
             })
     }, [])
 
 
+// function handleClick(product){
+//     setCart([...cart,product])
+//     console.log(cart)
 
+// }
 
 
     return (
         <div className="home-page">
             {products && products.length > 0 && products.map(product => (
                 <div key={product._id}>
-                    <Product  {...product} />
+                    <Product product={product} {...product} handleClick={handleClick}/>
                 </div>
             ))
             }
