@@ -1,4 +1,5 @@
 const CartPage = ({ cart,setCart }) => {
+    
     function handleRemove(id){
         const filtered = cart.filter((product) => product._id !== id);
         setCart(filtered)

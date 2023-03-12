@@ -1,7 +1,7 @@
-// const express = require("express")
-// const app = express()
-// const Cart = require("../models/Cart")
-// const Product = require("../models/Product")
+const express = require("express")
+const app = express()
+const Cart = require("../models/Cart")
+const Product = require("../models/Product")
 
 // exports.addToCart = async (req, res) => {
 //     const userId = req.params.id
@@ -21,7 +21,7 @@
 //             let productIndex = cart.products.findIndex(p => p.productId == productId)
 
 //             // Check if product exists or not
-//             if (itemIndex > -1) {
+//             if (productIndex > -1) {
 //                 let productItem = cart.products[productIndex]
 //                 productItem.quantity += quantity
 //                 cart.products[productIndex] = productItem
@@ -67,3 +67,4 @@
 //     }
 
 // }
+

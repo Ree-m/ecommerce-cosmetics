@@ -2,12 +2,11 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
-import { FaCartPlus } from "react-icons/fa";
 import "./styles/header.css"
 
 
 
-const Header = ({ cartItemCount }) => {
+const Header = () => {
     const { setUserInfo, userInfo } = useContext(UserContext)
 
 
@@ -42,7 +41,7 @@ const Header = ({ cartItemCount }) => {
                         <a className="logout" onClick={logout}>Logout ({username})</a>
                         <Link to="/cart">
                         
-                        <div className="cart" onClick={() => setShow(false)}>
+                        <div className="cart">
                             <span>
                                 <i className="fas fa-cart-plus"></i>
                             </span>
@@ -55,7 +54,6 @@ const Header = ({ cartItemCount }) => {
                 <>
                     <a className="logout" onClick={logout}>Logout({username})</a>
                     <Link to="/cart">
-                        <i className="fas fa-cart-plus"></i>
 
                     </Link>
 

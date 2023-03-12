@@ -32,11 +32,6 @@ const ProductPage = () => {
 
     }
 
-    // async function handleClick(item){
-    //     // e.preventDefault()
-    //     console.log(item)
-
-    // }
     if (redirect) {
         return <Navigate to={"/"} />
     }

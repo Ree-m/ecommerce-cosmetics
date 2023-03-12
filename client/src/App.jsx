@@ -17,14 +17,18 @@ import CartPage from './pages/CartPage';
 
 function App() {
   const [cart, setCart] = useState([])
-  const [cartItemCount, setCartItemCount] = useState(0);
 
 
-  function handleClick(product) {
-    if (cart.indexOf(product) !== -1) return;
+  async function handleClick(product) {
+    // const response=await fetch("http://localhost:9000/cart/addToCart",{
+    //   method:"POST"
+    //   headers:"application/json"
+    // })
+
+
+    // if (cart.indexOf(product) !== -1) return;
     setCart([...cart, product])
-    setCartItemCount(cartItemCount + 1);
-    console.log(cart)
+    console.log(cart,product)
 
   }
 
