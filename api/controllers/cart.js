@@ -160,46 +160,51 @@ const Product = require("../models/Product")
 //     }
 
 // }
-
+exports.getCart = async (req, res) => {
+    // Retrieve the cart items for the current user
+    const userId = req.body.userId;
+    const items = await CartItem.find({ userId });
+    res.json(items);
+};
 
 
 // Add an item to the cart
-exports.addToCart= (req, res) => {
+exports.addToCart = (req, res) => {
     // Retrieve the user ID and product ID from the request body
     const userId = req.body.userId;
     const productId = req.body.productId;
-  
+
     // Check if the item already exists in the cart
     CartItem.findOne({ userId, productId }, (err, cartItem) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Internal server error');
-      } else if (cartItem) {
-        // If the item already exists, increment the quantity
-        cartItem.quantity++;
-        cartItem.save();
-        res.send(cartItem);
-      } else {
-        // If the item doesn't exist, create a new cart item
-        const cartItem = new CartItem({
-          userId,
-          productId,
-          quantity: 1,
-        });
-        cartItem.save();
-        res.send(cartItem);
-      }
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal server error');
+        } else if (cartItem) {
+            // If the item already exists, increment the quantity
+            cartItem.quantity++;
+            cartItem.save();
+            res.send(cartItem);
+        } else {
+            // If the item doesn't exist, create a new cart item
+            const cartItem = new CartItem({
+                userId,
+                productId,
+                quantity: 1,
+            });
+            cartItem.save();
+            res.send(cartItem);
+        }
     });
-  };
+};
 
 
 
 // Remove an item from the cart
-exports.deleteCartItem= async (req, res) => {
+exports.deleteCartItem = async (req, res) => {
     const userId = req.params.userId;
     const productId = req.params.productId;
-  
+
     await CartItem.deleteOne({ userId, productId })
     res.send("cart item deleted")
-    }
-  
+}
+
