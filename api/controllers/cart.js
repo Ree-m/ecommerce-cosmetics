@@ -1,5 +1,4 @@
 const express = require("express")
-const app = express()
 const CartItem = require("../models/Cart")
 const Product = require("../models/Product")
 
@@ -192,4 +191,15 @@ exports.addToCart= (req, res) => {
       }
     });
   };
+
+
+
+// Remove an item from the cart
+exports.deleteCartItem= async (req, res) => {
+    const userId = req.params.userId;
+    const productId = req.params.productId;
+  
+    await CartItem.deleteOne({ userId, productId })
+    res.send("cart item deleted")
+    }
   
