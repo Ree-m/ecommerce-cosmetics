@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
@@ -16,20 +16,30 @@ import CartPage from './pages/CartPage';
 
 
 function App() {
-  const [cart, setCart] = useState([])
+  const [cartItems, setCartItems] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:9000/cart", {
+        credentials: "include"
+    })
+        .then(res => res.json())
+        .then(data => setCartItems(data))
+        .catch(error => console.error(error))
 
+}, [])
 
-  async function handleClick(product) {
-    // const response=await fetch("http://localhost:9000/cart/addToCart",{
-    //   method:"POST"
-    //   headers:"application/json"
-    // })
-
-
-    // if (cart.indexOf(product) !== -1) return;
-    setCart([...cart, product])
-    console.log(cart,product)
-
+// this is uplifting/lifting state up
+  async function addToCart(productId,userId) {
+    try {
+      const response = await fetch(`http://localhost:9000/cart/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId,userId })
+      });
+      const data = await response.json();
+      setCartItems(item => [...item, data]);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -37,13 +47,13 @@ function App() {
       <Routes>
         <Route path={"/"} element={<Layout />} >
 
-          <Route index element={<HomePage handleClick={handleClick} />} />
+          <Route index element={<HomePage />} />
           <Route path={"/login"} element={<LoginPage />} />
           <Route path={"/signup"} element={<SignupPage />} />
           <Route path="/add" element={<AddPage />} />
-          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage addToCart={addToCart} />} />
           <Route path="/edit/:id" element={<EditProductPage />} />
-          <Route path="/cart" element={<CartPage cart={cart} setCart={setCart}/>} />
+          <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems} />} />
 
 
 

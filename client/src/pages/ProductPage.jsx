@@ -4,15 +4,13 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useCart } from 'react-use-cart';
 
-const ProductPage = () => {
+const ProductPage = ({addToCart}) => {
     const [product, setProduct] = useState("")
     const [redirect, setRedirect] = useState(false)
-    const [cart,setCart]=useState([])
-    const { id } = useParams()
+    const [cart, setCart] = useState([])
+    const { id } = useParams() //this is productid 
     const { userInfo } = useContext(UserContext)
-    // const { addItem } = useCart()
 
     useEffect(() => {
         fetch(`http://localhost:9000/product/${id}`).then(res => {
@@ -44,8 +42,11 @@ const ProductPage = () => {
             </div>
 
             <div className="product-details">
-                <span>{product.price}</span>
-            </div>
+                {/* <span>{product.price}</span> */}
+                {userInfo.id}..........
+                {id}..........
+                {product._id}          
+                  </div>
 
             {userInfo && userInfo.username === "reemreem" && (
                 <button onClick={deleteProduct}>delete</button>
@@ -64,10 +65,9 @@ const ProductPage = () => {
                 </div>
 
             )}
-            {/* <div key={id}>
-                <button onClick={handleClick}>Add to cart</button>
 
-            </div> */}
+            <button onClick={() => addToCart(product._id,userInfo.id)}>Add to cart</button>
+
         </div>
     );
 }

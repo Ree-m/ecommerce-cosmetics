@@ -197,12 +197,26 @@ exports.addToCart = (req, res) => {
     });
 };
 
+// Edit cart item
+exports.editCartItem=async(req,res)=>{
+
+    const {productId,quantity}=req.body
+    const {userId}=req.params
+    const item=await CartItem.findOne({userId,productId})
+    await item.update({
+        quantity:quantity
+    })
+    await item.save()
+    res.json(item)
+    res.send("cart item edited")
+}
+
 
 
 // Remove an item from the cart
 exports.deleteCartItem = async (req, res) => {
-    const userId = req.params.userId;
-    const productId = req.params.productId;
+    const userId = req.body.userId;
+    const productId = req.body.productId;
 
     await CartItem.deleteOne({ userId, productId })
     res.send("cart item deleted")
