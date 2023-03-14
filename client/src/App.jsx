@@ -37,24 +37,37 @@ function App() {
 
   // this is uplifting/lifting state up
   async function addToCart(productId, userId,quantity,name,price) {
+    // try {
+    //   const response = await fetch(`http://localhost:9000/cart/add`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ 
+    //       productId, 
+    //       userId ,
+    //       quantity,
+    //       name,
+    //       price
+    //       })
+    //   });
+    //   const item= await response.json();
+      
+    //     setCartItems(prevItem => [...prevItem, item])
+      
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
     try {
-      const response = await fetch(`http://localhost:9000/cart/add`, {
+      const response = await fetch("http://localhost:9000/cart/add", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          productId, 
-          userId ,
-          quantity,
-          name,
-          price
-          })
+        body: JSON.stringify({ userId, productId, quantity, name, price }),
       });
-      const item= await response.json();
-      
-        setCartItems(prevItem => [...prevItem, item])
-      
+      const data = await response.json();
+      return data.success;
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 
