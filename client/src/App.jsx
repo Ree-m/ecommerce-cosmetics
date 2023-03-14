@@ -16,24 +16,20 @@ import CartPage from './pages/CartPage';
 
 
 function App() {
-  const [cartItems, setCartItems] = useState([])
   
   
-    useEffect(() => {
-        fetch("http://localhost:9000/cart", {
-            credentials: "include"
-        })
-            .then(res => res.json())
-            .then(data => setCartItems(data))
-            .catch(error => console.error(error))
+    // useEffect(() => {
+    //     fetch("http://localhost:9000/cart", {
+    //         credentials: "include"
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => setCartItems(data))
+    //         .catch(error => console.error(error))
     
-    }, []) // only  run once, when the component mounts
+    // }, []) // only  run once, when the component mounts
     
     
-    
-
-
-
+   
 
   // this is uplifting/lifting state up
   async function addToCart(productId, userId,quantity,name,price) {
@@ -82,9 +78,9 @@ function App() {
           <Route path="/add" element={<AddPage />} />
           <Route path="/product/:id" element={<ProductPage addToCart={addToCart} />} />
           <Route path="/edit/:id" element={<EditProductPage />} />
-          <Route path="/cart" element={<CartPage cartItems={cartItems} setCartItems={setCartItems} />} />
+          <Route path="/cart" element={<CartPage  />} />
 
-
+          {/* cartItems={cartItems} setCartItems={setCartItems} */}
 
 
         </Route>

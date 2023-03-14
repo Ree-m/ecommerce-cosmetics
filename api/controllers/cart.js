@@ -4,10 +4,12 @@ const Product = require("../models/Product")
 
 
 exports.getCart = async (req, res) => {
-  // Retrieve the cart items for the current user
+  // // Retrieve the cart items for the current user
   const userId = req.body.userId;
   const items = await CartItem.find({ userId });
   res.json(items);
+
+  
 };
 
 
