@@ -6,27 +6,33 @@ const AddPage = () => {
     const [name, setName] = useState("")
     const [brand, setBrand] = useState("")
     const [price, setPrice] = useState("")
-    const [redirect,setRedirect]=useState(false)
+    const [files, setFiles] = useState("")
+    const [redirect, setRedirect] = useState(false)
 
     async function addProduct(e) {
         e.preventDefault()
         console.log("add")
-    
-        const response =fetch("http://localhost:9000/add",{
-            method:"POST",
-            body:JSON.stringify({name,brand,price}),
-            headers:{"Content-Type":"application/json"},
-            credentials:"include",
+        const data = new FormData()
+        data.set("name", name)
+        data.set("brand", brand)
+        data.set("price", price)
+        data.set("file", files[0])
+
+
+        const response = fetch("http://localhost:9000/add", {
+            method: "POST",
+            body: data,
+            credentials: "include",
 
         })
-        if((await response).ok){
+        if ((await response).ok) {
             setRedirect(true)
         }
-        // console.log(await response)
+        console.log(await response)
     }
 
-    if(redirect){
-        return<Navigate to={"/"} />
+    if (redirect) {
+        return <Navigate to={"/"} />
     }
 
 
@@ -49,6 +55,11 @@ const AddPage = () => {
                     placeholder="price"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)} />
+
+
+                <input type="file"
+
+                    onChange={(e) => setFiles(e.target.files)} />
 
                 <button className="btn">Add product</button>
 

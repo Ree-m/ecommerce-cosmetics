@@ -12,6 +12,8 @@ const bcrypt = require("bcryptjs")
 const flash = require("express-flash");//if password is short,email is invalid,or not confirmed,flash gives us an error message
 const logger = require('morgan')
 const jwt = require("jsonwebtoken")
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/' });
 
 
 
@@ -28,6 +30,8 @@ const User = require("./models/User")
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
+
+app.use("/uploads", express.static(__dirname + "/uploads"))
 
 
 const initializePassport = require('./config/passportConfig')

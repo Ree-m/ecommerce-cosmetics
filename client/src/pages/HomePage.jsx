@@ -17,18 +17,11 @@ const HomePage = ({handleClick}) => {
     }, [])
 
 
-// function handleClick(product){
-//     setCart([...cart,product])
-//     console.log(cart)
-
-// }
-
-
     return (
         <div className="home-page">
             {products && products.length > 0 && products.map(product => (
                 <div key={product._id}>
-                    <Product product={product} {...product} handleClick={handleClick}/>
+                    <Product product={product} {...product} />
                 </div>
             ))
             }

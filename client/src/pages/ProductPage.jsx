@@ -5,7 +5,7 @@ import { UserContext } from '../UserContext';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const ProductPage = ({addToCart}) => {
+const ProductPage = ({ addToCart }) => {
     const [product, setProduct] = useState("")
     const [redirect, setRedirect] = useState(false)
     const [cart, setCart] = useState([])
@@ -42,11 +42,8 @@ const ProductPage = ({addToCart}) => {
             </div>
 
             <div className="product-details">
-                {/* <span>{product.price}</span> */}
-                {userInfo.id}..........
-                {id}..........
-                {product._id}          
-                  </div>
+                <span>{product.price}</span>
+            </div>
 
             {userInfo && userInfo.username === "reemreem" && (
                 <button onClick={deleteProduct}>delete</button>
@@ -62,11 +59,15 @@ const ProductPage = ({addToCart}) => {
                         Edit this product
                     </Link>
 
+                    <div className="product-image">
+                        <img src={`http://localhost:9000/${product.image}`} alt="Image of this product" />
+                    </div>
+
                 </div>
 
             )}
 
-            <button onClick={() => addToCart(product._id,userInfo.id)}>Add to cart</button>
+            <button onClick={() => addToCart(product._id, userInfo.id,1,product.name,product.price)}>Add to cart</button>
 
         </div>
     );
