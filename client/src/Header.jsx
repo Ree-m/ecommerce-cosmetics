@@ -39,7 +39,7 @@ const Header = () => {
                     <>
                         <Link to="/add">Add new product</Link>
                         <a className="logout" onClick={logout}>Logout ({username})</a>
-                        <Link to="/cart">
+                        <Link to={"/cart/" +userInfo.id}>
                         
                         <div className="cart">
                             <span>

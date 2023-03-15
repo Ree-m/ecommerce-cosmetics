@@ -5,44 +5,79 @@ const Product = require("../models/Product")
 
 exports.getCart = async (req, res) => {
   // // Retrieve the cart items for the current user
-  const userId = req.body.userId;
-  const items = await CartItem.find({ userId });
-  res.json(items);
+  const userId = req.params.userId;
+  console.log(req.params.userId, "pause", req.body.userId)
+  if (userId) {
+    const items = await CartItem.find({ userId });
+    res.json(items)
 
-  
-};
+  }
+
+}
 
 
 // Add an item to the cart
 exports.addToCart = async (req, res) => {
+  // try {
+  //   const { userId, productId, quantity, name, price } = req.body;
+
+  //   // Check if the cart item already exists for this user and product
+  //   const cartItem = await CartItem.findOne({ userId, 'products.productId': productId });
+
+  //   if (cartItem) {
+  //     // If the cart item exists, update the quantity
+  //     await CartItem.updateOne(
+  //       { _id: cartItem._id, 'products.productId': productId },
+  //       { $inc: { 'products.$.quantity': quantity } }
+  //     );
+  //   } else {
+  //     // If the cart item doesn't exist, create a new one
+  //     const newCartItem = new CartItem({
+  //       userId,
+  //       products: [{ productId, quantity, name, price }],
+  //     });
+  //     await newCartItem.save();
+  //     res.json(newCartItem)
+
+  //   }
+  //   res.status(200).json({ success: true });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Server error' });
+  // }
+
+  const { userId, productId, name, price, quantity } = req.body;
+
   try {
-    const { userId, productId, quantity, name, price } = req.body;
+    // Find the cart document for the user
+    let cart = await CartItem.findOne({ userId });
 
-    // Check if the cart item already exists for this user and product
-    const cartItem = await CartItem.findOne({ userId, 'products.productId': productId });
-
-    if (cartItem) {
-      // If the cart item exists, update the quantity
-      await CartItem.updateOne(
-        { _id: cartItem._id, 'products.productId': productId },
-        { $inc: { 'products.$.quantity': quantity } }
-      );
-    } else {
-      // If the cart item doesn't exist, create a new one
-      const newCartItem = new CartItem({
-        userId,
-        products: [{ productId, quantity, name, price }],
-      });
-      await newCartItem.save();
-      res.json(newCartItem)
-
+    // If there is no cart document for the user, create a new one
+    if (!cart) {
+      cart = new CartItem({ userId, products: [] });
     }
-    res.status(200).json({ success: true });
+
+    // Check if the product is already in the cart
+    const existingProduct = cart.products.find((p) => p.productId.toString() === productId);
+
+    // If the product is already in the cart, update its quantity
+    if (existingProduct) {
+      existingProduct.quantity += quantity;
+    }
+    // Otherwise, add a new product to the cart
+    else {
+      cart.products.push({ productId, name, price, quantity });
+    }
+
+    // Save the updated cart document
+    await cart.save();
+
+    res.status(200).json(cart);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
   }
-}
+};
 
 
 

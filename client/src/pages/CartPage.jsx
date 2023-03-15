@@ -12,19 +12,38 @@ const CartPage = () => {
 
 
 
+    // useEffect(() => {
+    //     const userId = userInfo.id
+    //     console.log(userId); // log the userId to the console
+    //     fetch(`http://localhost:9000/cart/${userInfo._id}`, {
+    //       credentials: "include"
+    //     })
+    //       .then(res => res.json())
+    //       .then(data =>
+    //         setCartItems(data)
+    //         )
+    //         console.log('this is data',data) 
+
+    //       .catch(error => console.error(error))
+    // },[]) // only  run once, when the component mounts
+
     useEffect(() => {
-        fetch("http://localhost:9000/cart", {
-            credentials: "include"
+        fetch(`http://localhost:9000/cart/${userInfo.id}`, {
+            credentials: "include",
         })
-            .then(res => res.json())
-            .then(data => setCartItems(data))
-            .catch(error => console.error(error))
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("this is data", data); // check the response from the server
+                setCartItems(data);
+            })
+            .catch((error) => console.error(error));
+    }, [userInfo.id]);
 
-    }, []) // only  run once, when the component mounts
 
+if(cartItems){
+    console.log("this is cartItems", cartItems[0].products.map((item=>item.name)))
 
-
-    console.log("this is cartItems", cartItems)
+}
 
     async function removeFromCart(productId) {
         try {
@@ -64,16 +83,14 @@ const CartPage = () => {
     return (
         <>
             <h2>Cart</h2>
-            <ul>
-                {cartItems.products.map((product) => (
-                    <li key={product.productId}>
-                        <p>{product.name}</p>
-                        <p>Quantity: {product.quantity}</p>
-                        <p>Price: ${product.price}</p>
-                        <button onClick={removeFromCart}></button>
-                    </li>
-                ))}
-            </ul>
+            {cartItems &&cartItems[0].products.map((item) => (
+                <div key={item._id}>
+                    <p>{item.name}</p>
+                    <p>Quantity: {item.quantity}</p>
+                    <p>Price: ${item.price}</p>
+                    
+                </div>
+            ))}
 
         </>
     );

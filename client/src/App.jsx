@@ -47,7 +47,7 @@ function App() {
           <Route path="/add" element={<AddPage />} />
           <Route path="/product/:id" element={<ProductPage addToCart={addToCart} />} />
           <Route path="/edit/:id" element={<EditProductPage />} />
-          <Route path="/cart" element={<CartPage  />} />
+          <Route path="/cart/:userId" element={<CartPage  />} />
 
 
 
