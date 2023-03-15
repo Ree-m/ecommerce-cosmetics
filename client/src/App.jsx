@@ -16,42 +16,11 @@ import CartPage from './pages/CartPage';
 
 
 function App() {
-  
-  
-    // useEffect(() => {
-    //     fetch("http://localhost:9000/cart", {
-    //         credentials: "include"
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => setCartItems(data))
-    //         .catch(error => console.error(error))
-    
-    // }, []) // only  run once, when the component mounts
-    
-    
-   
+
+
 
   // this is uplifting/lifting state up
-  async function addToCart(productId, userId,quantity,name,price) {
-    // try {
-    //   const response = await fetch(`http://localhost:9000/cart/add`, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ 
-    //       productId, 
-    //       userId ,
-    //       quantity,
-    //       name,
-    //       price
-    //       })
-    //   });
-    //   const item= await response.json();
-      
-    //     setCartItems(prevItem => [...prevItem, item])
-      
-    // } catch (error) {
-    //   console.error(error);
-    // }
+  async function addToCart(productId, userId, quantity, name, price) {
 
     try {
       const response = await fetch("http://localhost:9000/cart/add", {
@@ -80,7 +49,6 @@ function App() {
           <Route path="/edit/:id" element={<EditProductPage />} />
           <Route path="/cart" element={<CartPage  />} />
 
-          {/* cartItems={cartItems} setCartItems={setCartItems} */}
 
 
         </Route>

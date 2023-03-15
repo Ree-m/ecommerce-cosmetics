@@ -6,28 +6,26 @@ import Product from '../Product';
 
 const CartPage = () => {
 
-    const [cartItems, setCartItems] = useState([])
-
-
-
-    const { id } = useParams()
     const { userInfo } = useContext(UserContext)
+    const [cartItems, setCartItems] = useState(null)
+
+
+
 
     useEffect(() => {
-        async function fetchCart() {
-            try {
-                const response = await fetch(`http://localhost:9000/cart/${userInfo.id}`);
-                const data = await response.json();
-                setCartItems(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        fetch("http://localhost:9000/cart", {
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(data => setCartItems(data))
+            .catch(error => console.error(error))
 
-        fetchCart();
-    }, [userInfo.id]);
+    }, []) // only  run once, when the component mounts
 
-console.log("this is cartItems",cartItems)
+
+
+    console.log("this is cartItems", cartItems)
+
     async function removeFromCart(productId) {
         try {
             await fetch(`http://localhost:9000/cart/${userInfo.id}/${productId}`, {
@@ -65,7 +63,7 @@ console.log("this is cartItems",cartItems)
 
     return (
         <>
-            <h2>My Cart</h2>
+            <h2>Cart</h2>
             <ul>
                 {cartItems.products.map((product) => (
                     <li key={product.productId}>
@@ -76,7 +74,7 @@ console.log("this is cartItems",cartItems)
                     </li>
                 ))}
             </ul>
-        
+
         </>
     );
 }
